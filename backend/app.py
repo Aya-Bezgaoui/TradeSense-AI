@@ -53,11 +53,12 @@ def create_app():
         app.register_blueprint(core_bp, url_prefix='/api')
 
         @app.route('/')
+        @app.route('/api')
         def health_check():
             return jsonify({
                 "status": "healthy", 
                 "service": "TradeSense API",
-                "version": "v3-debug-safety",
+                "version": "v4-final-fix",
                 "note": "Yahoo + BVC Scraper Active"
             })
 
