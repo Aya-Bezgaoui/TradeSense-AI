@@ -3,12 +3,20 @@ import os
 class Config:
     SECRET_KEY = os.getenv('JWT_SECRET', 'dev-secret-key')
     
-    # Database Config - Priority to Env Var (for LibSQL)
-    # Default to local sqlite if not set. On Vercel, use /tmp/tradesense.db to avoid Read-Only error
-    is_vercel = os.environ.get('VERCEL_REGION') is not None or os.getcwd().startswith('/var/task')
-    default_db = 'sqlite:////tmp/tradesense.db' if is_vercel else 'sqlite:///tradesense.db'
+    # Database Config
+    # Priority 1: Env Var (DATABASE_URL) -> intended for Postgres (Production)
+    # Priority 2: Vercel Ephemeral SQLite -> fallback for quick deploy
+    # Priority 3: Local SQLite -> for development
     
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', default_db)
+    uri = os.getenv('DATABASE_URL')
+    if uri and uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    
+    if not uri:
+        is_vercel = os.environ.get('VERCEL_REGION') is not None or os.getcwd().startswith('/var/task')
+        uri = 'sqlite:////tmp/tradesense.db' if is_vercel else 'sqlite:///tradesense.db'
+        
+    SQLALCHEMY_DATABASE_URI = uri
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # PayPal Settings (Defaults)
