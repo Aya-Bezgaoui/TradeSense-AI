@@ -17,27 +17,17 @@ const Education = () => {
                     duration: "2 min",
                     content: `
 ### Introduction
-When you first start looking in to it, financial trading can be confusing. You're likely to hear a lot of jargon surrounding it, some fairly recognisable such as interest rate, broker, commodity or dividend, and some you may never have heard before, such as a long strangle, EBITDA or ichimoku cloud.
-
-However, beneath all the terminology, there's one core principle that underpins financial trading: predicting whether something will go up in price, or down. Get it right and there's opportunity for great rewards. But get it wrong and you could lose a lot of money.
+When you first start looking in to it, financial trading can be confusing. You're likely to hear a lot of jargon surrounding it. However, beneath all the terminology, there's one core principle that underpins financial trading: predicting whether something will go up in price, or down.
 
 ### What is financial trading?
 Very simply, financial trading is the buying and selling of financial instruments. These instruments can take many forms, but some of the main categories are:
 - **Shares**: small units of ownership in a company, such as Apple, Google, HSBC
-- **Indices**: the value of a group of companies, represented as a single number, eg the FTSE 100, S&P 500, Nikkei 225
+- **Indices**: the value of a group of companies, represented as a single number, eg the FTSE 100, S&P 500
 - **Forex**: global currencies, including the pound, dollar, euro
 - **Commodities**: physical assets, raw materials and agricultural products, for example gold, oil, corn
 
-Most of the time financial traders don't need the assets at all. They are simply looking to make a profit from movements in the price, for example by buying low, then selling high.
-
 ### What are the financial markets?
-Just like any other form of market, financial markets are where buyers and sellers come to trade. They are often physical locations where traders meet to exchange a certain type of asset, eg:
-- Shares at the **London Stock Exchange (LSE)**
-- Commodities at the **Chicago Mercantile Exchange (CME)**
-
-But they can also be electronic systems, such as:
-- The **NASDAQ** stock exchange
-- The **Forex market** (essentially a network of large banks and currency providers)
+Just like any other form of market, financial markets are where buyers and sellers come to trade. They are often physical locations, like the **London Stock Exchange (LSE)**, or electronic systems like the **NASDAQ**.
                     `
                 },
                 {
@@ -45,21 +35,133 @@ But they can also be electronic systems, such as:
                     duration: "5 min",
                     content: `
 ### Why trade the financial markets?
-People trade for many reasons. Some enjoy the intellectual challenge of analyzing the markets and making decisions. Others are attracted by the potential for financial gain.
+People trade for many reasons. Some enjoy the intellectual challenge of analyzing the markets. Others are attracted by the potential for financial gain.
 
 **Investing vs Trading**
-- **Investing**: Typically involves buying assets to hold them for a long period, hoping they will increase in value over time. Investors often look for income (dividends) and capital growth.
-- **Trading**: Usually involves buying and selling assets over shorter timeframes to profit from price fluctuations. Traders can profit from both rising and falling markets (by "short selling").
+- **Investing**: Typically involves buying assets to hold them for a long period, hoping they will increase in value over time.
+- **Trading**: Usually involves buying and selling assets over shorter timeframes to profit from price fluctuations. Traders can profit from both rising and falling markets.
                     `
                 },
-                { title: "What are shares?", duration: "9 min", content: "Shares represent units of ownership in a company. When you buy a share, you become a shareholder, meaning you own a small part of that business." },
-                { title: "Trading shares", duration: "9 min", content: "Trading shares involves buying and selling company stock to profit from price movements. You can trade real shares or derivatives like CFDs." },
-                { title: "What are stock indices?", duration: "7 min", content: "A stock index measures the performance of a group of shares from an exchange. Examples include the S&P 500 (top 500 US companies) and the FTSE 100." },
-                { title: "Trading stock indices", duration: "5 min", content: "Indices allow traders to speculate on the overall direction of a market or sector without analyzing individual stocks." },
-                { title: "What is forex?", duration: "11 min", content: "Forex (Foreign Exchange) is the global marketplace for exchanging currencies. It is the largest and most liquid financial market in the world." },
-                { title: "Trading forex", duration: "14 min", content: "Forex trading involves buying one currency while selling another. Currencies are always traded in pairs, such as EUR/USD or GBP/JPY." },
-                { title: "What are commodities?", duration: "11 min", content: "Commodities are basic goods used in commerce, like Gold, Oil, Wheat, and Coffee. They are often traded as futures contracts." },
-                { title: "Trading commodities", duration: "6 min", content: "Traders can speculate on the price of commodities driven by supply and demand factors like weather, geopolitics, and economic data." }
+                {
+                    title: "What are shares?",
+                    duration: "9 min",
+                    content: `
+### What are shares?
+A share is a unit of ownership in a company. If a company is worth £10,000 and has issued 2000 shares, each share is worth £5. As the share price fluctuates, so does the value of the company.
+
+### Why do companies offer shares?
+Companies sell shares to raise money. This is known as "going public" or an Initial Public Offering (IPO). The money raised can be used to expand the business or pay off debt.
+
+### Why do share prices move?
+Share prices are driven by **supply and demand**.
+- **Earnings reports**: If a company reports better profits than expected, its share price usually rises.
+- **Market sentiment**: General economic news or investor confidence can affect prices.
+                    `
+                },
+                {
+                    title: "Trading shares",
+                    duration: "9 min",
+                    content: `
+### How are shares traded?
+Shares are traded on stock exchanges (like the LSE or NYSE). You typically need a stockbroker to act as an intermediary to buy and sell shares for you.
+
+### Broker types
+- **Full-service brokers**: Offer advice and research but charge higher fees.
+- **Execution-only brokers**: Simply carry out your instructions to buy or sell. This is often cheaper and faster.
+
+### Dividends
+Many companies pay a portion of their profits to shareholders, known as a dividend. This provides an income stream for investors on top of any potential growth in the share price.
+                    `
+                },
+                {
+                    title: "What are stock indices?",
+                    duration: "7 min",
+                    content: `
+### What is a stock index?
+A stock index is a numerical representation of the performance of a group of companies.
+- **S&P 500**: Tracks the 500 largest companies in the US.
+- **FTSE 100**: Tracks the 100 largest companies on the London Stock Exchange.
+- **DAX**: Tracks 30 major German companies.
+
+### Why are they important?
+Indices give a quick "snapshot" of how a specific market or the entire economy is performing. If the S&P 500 is up, it generally means the US stock market is doing well.
+                    `
+                },
+                {
+                    title: "Trading stock indices",
+                    duration: "5 min",
+                    content: `
+### How are they calculated?
+Most major indices are **capitalisation-weighted**. This means larger companies have a bigger influence on the index's price than smaller ones.
+
+### How to trade indices?
+You can't buy an index directly like a share. Instead, you trade:
+- **Index Funds / ETFs**: Funds that track the index.
+- **Derivatives (CFDs/Futures)**: allow you to speculate on the price movement of the index without owning the underlying shares.
+                    `
+                },
+                {
+                    title: "What is forex?",
+                    duration: "11 min",
+                    content: `
+### What is Forex?
+Forex (Foreign Exchange) is the marketplace for exchanging global currencies. It is the largest financial market in the world, with trillions of dollars traded every day.
+
+### Who trades forex?
+- **Central Banks**: Manage national currency value.
+- **Banks & Businesses**: For international trade.
+- **Speculators**: Traders looking to profit from exchange rate changes.
+
+### Unqiue features
+The forex market is decentralized (no central exchange) and operates 24 hours a day, 5 days a week.
+                    `
+                },
+                {
+                    title: "Trading forex",
+                    duration: "14 min",
+                    content: `
+### Currency Pairs
+Currencies are always traded in pairs.
+- **Base currency**: The first currency (e.g., EUR in EUR/USD).
+- **Quote currency**: The second currency (e.g., USD in EUR/USD).
+
+### Pips and Lots
+- **Pip**: The smallest unit of price movement (usually the 4th decimal place).
+- **Lot**: The standardized quantity of currency you trade (Standard lot = 100,000 units).
+
+### Major Pairs
+The most traded pairs, usually involving the US Dollar (EUR/USD, GBP/USD, USD/JPY). They typically have the lowest spreads.
+                    `
+                },
+                {
+                    title: "What are commodities?",
+                    duration: "11 min",
+                    content: `
+### What are commodities?
+Commodities are raw materials or primary agricultural products that can be bought and sold.
+
+### Types of commodities
+- **Hard Commodities**: Natural resources that are mined or extracted (Gold, Oil, Copper, Natural Gas).
+- **Soft Commodities**: Agricultural products that are grown (Wheat, Coffee, Sugar, Cotton).
+
+### Standardization
+Commodities must be standardized (e.g., a barrel of Brent Crude Oil) so they can be traded on exchanges without inspection.
+                    `
+                },
+                {
+                    title: "Trading commodities",
+                    duration: "6 min",
+                    content: `
+### Where are they traded?
+Major exchanges include the **Chicago Mercantile Exchange (CME)** and the **London Metal Exchange (LME)**.
+
+### What drives prices?
+- **Supply and Demand**: The core driver.
+- **Geopolitics**: Wars or sanctions can disrupt supply (especially Oil).
+- **Weather**: crucial for soft commodities (e.g., a drought affecting wheat harvest).
+- **Economic Health**: Industrial metals lie Copper rise when the global economy grows.
+                    `
+                }
             ],
             duration: "approx 80m",
             progress: 0,
