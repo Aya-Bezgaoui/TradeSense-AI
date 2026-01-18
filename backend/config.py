@@ -4,15 +4,15 @@ class Config:
     SECRET_KEY = os.getenv('JWT_SECRET', 'dev-secret-key')
     
     # Database Config
-    # Priority 1: Env Var (DATABASE_URL) -> intended for Postgres (Production)
-    # Priority 2: Vercel Ephemeral SQLite -> fallback for quick deploy
-    # Priority 3: Local SQLite -> for development
+    # Priority: Vercel Postgres Vars -> DATABASE_URL -> Vercel SQLite -> Local SQLite
     
-    uri = os.getenv('DATABASE_URL')
+    uri = os.getenv('POSTGRES_URL') or os.getenv('POSTGRES_PRISMA_URL') or os.getenv('DATABASE_URL')
+    
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
     
     if not uri:
+        # Fallback to ephemeral SQLite for Vercel if no DB connected
         is_vercel = os.environ.get('VERCEL_REGION') is not None or os.getcwd().startswith('/var/task')
         uri = 'sqlite:////tmp/tradesense.db' if is_vercel else 'sqlite:///tradesense.db'
         
