@@ -49,7 +49,12 @@ def create_app():
 
     @app.route('/')
     def health_check():
-        return jsonify({"status": "healthy", "service": "TradeSense API"})
+        return jsonify({
+            "status": "healthy", 
+            "service": "TradeSense API",
+            "version": "v2-lightweight",
+            "note": "Yahoo + BVC Scraper Active"
+        })
 
     # verification: Removed auto-init to prevent Cold Start timeouts on Vercel
     # User must hit /api/debug/db once to set up tables.
