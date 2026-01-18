@@ -42,9 +42,9 @@ export const AuthProvider = ({ children }) => {
             await api.post('/auth/register', { name, email, password });
             return { success: true };
         } catch (error) {
-            return {
-                let errorMessage = 'Registration failed';
-                if(error.response) {
+            let errorMessage = 'Registration failed';
+
+            if (error.response) {
                 // Server responded with a status code
                 errorMessage = error.response.data?.error || `Server Error (${error.response.status})`;
             } else if (error.request) {
@@ -54,26 +54,26 @@ export const AuthProvider = ({ children }) => {
                 // Request setup error
                 errorMessage = error.message;
             }
+
             return {
                 success: false,
                 error: errorMessage
             };
-        };
-    }
-};
+        }
+    };
 
-const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
-    navigate('/auth/login');
-};
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/auth/login');
+    };
 
-return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
-        {!loading && children}
-    </AuthContext.Provider>
-);
+    return (
+        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+            {!loading && children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);
