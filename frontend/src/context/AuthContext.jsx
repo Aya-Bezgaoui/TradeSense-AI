@@ -43,24 +43,37 @@ export const AuthProvider = ({ children }) => {
             return { success: true };
         } catch (error) {
             return {
+                let errorMessage = 'Registration failed';
+                if(error.response) {
+                // Server responded with a status code
+                errorMessage = error.response.data?.error || `Server Error (${error.response.status})`;
+            } else if (error.request) {
+                // Request made but no response received
+                errorMessage = 'No response from server. Check connection.';
+            } else {
+                // Request setup error
+                errorMessage = error.message;
+            }
+            return {
                 success: false,
-                error: error.response?.data?.error || 'Registration failed'
+                error: errorMessage
             };
-        }
-    };
+        };
+    }
+};
 
-    const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setUser(null);
-        navigate('/auth/login');
-    };
+const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/auth/login');
+};
 
-    return (
-        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
-            {!loading && children}
-        </AuthContext.Provider>
-    );
+return (
+    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+        {!loading && children}
+    </AuthContext.Provider>
+);
 };
 
 export const useAuth = () => useContext(AuthContext);
