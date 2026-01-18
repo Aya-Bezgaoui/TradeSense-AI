@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { BookOpen, Video, Award, Star, PlayCircle } from 'lucide-react';
+import clsx from 'clsx';
 
 const Education = () => {
+    const navigate = useNavigate();
     const [selectedModule, setSelectedModule] = React.useState(null);
     const [activeCourse, setActiveCourse] = React.useState(null);
 
@@ -294,7 +297,10 @@ Major exchanges include the **Chicago Mercantile Exchange (CME)** and the **Lond
                     <h3 className="text-2xl font-bold text-white mb-2">Join the Live Webinars</h3>
                     <p className="text-slate-400">Interact with expert traders in real-time. Next session starts in 2 hours.</p>
                 </div>
-                <button className="btn btn-primary px-8 py-3 flex items-center gap-2">
+                <button
+                    onClick={() => navigate('/webinar-registration')}
+                    className="btn btn-primary px-8 py-3 flex items-center gap-2"
+                >
                     <Star className="w-4 h-4 fill-current" />
                     Reserve Spot
                 </button>
