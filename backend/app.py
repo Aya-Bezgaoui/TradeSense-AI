@@ -51,13 +51,8 @@ def create_app():
     def health_check():
         return jsonify({"status": "healthy", "service": "TradeSense API"})
 
-    # verification: ensure tables exist, but safe-guard against crashes
-    try:
-        with app.app_context():
-            db.create_all()
-            print("Database initialized successfully.")
-    except Exception as e:
-        print(f"Database init failed: {e}")
+    # verification: Removed auto-init to prevent Cold Start timeouts on Vercel
+    # User must hit /api/debug/db once to set up tables.
 
     @app.route('/api/debug/db')
     def debug_db():
