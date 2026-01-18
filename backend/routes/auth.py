@@ -10,6 +10,10 @@ auth_bp = Blueprint('auth', __name__)
 def register():
     data = request.json
     try:
+        # Safety Net: Ensure tables exist before querying
+        # This fixes "Relation does not exist" on first run
+        db.create_all()
+
         if User.query.filter_by(email=data['email']).first():
             return jsonify({"error": "Email already exists"}), 400
         
