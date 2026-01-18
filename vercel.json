@@ -19,15 +19,16 @@
             "dest": "backend/app.py"
         },
         {
-            "src": "/assets/(.*)",
-            "dest": "/assets/$1"
+            "src": "/(.*)",
+            "dest": "/frontend/$1",
+            "continue": true
         },
         {
             "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "/index.html"
+            "dest": "/frontend/index.html"
         }
     ]
 }
