@@ -7,19 +7,19 @@ class NewsService:
         sentiment_options = ['positive', 'negative', 'neutral']
         
         headlines = [
-            ("Bitcoin surges past resistance as institutional interest grows", "positive", "Crypto"),
-            ("Fed signals potential rate cuts later this year", "positive", "Forex"),
-            ("Tech stocks slip amid mixed earnings reports", "negative", "Stocks"),
-            ("Oil prices stabilize after volatile week", "neutral", "Commodities"),
-            ("New regulatory framework proposed for DeFi", "neutral", "Crypto"),
-            ("Gold hits all-time high on global uncertainty", "positive", "Commodities"),
-            ("Apple announces revolutionary AI integration", "positive", "Stocks"),
-            ("Tesla delivery numbers miss analyst expectations", "negative", "Stocks")
+            ("Bitcoin surges past resistance as institutional interest grows", "positive", "Crypto", "https://www.bloomberg.com/crypto"),
+            ("Fed signals potential rate cuts later this year", "positive", "Forex", "https://www.reuters.com/finance"),
+            ("Tech stocks slip amid mixed earnings reports", "negative", "Stocks", "https://www.cnbc.com/technology"),
+            ("Oil prices stabilize after volatile week", "neutral", "Commodities", "https://www.bloomberg.com/energy"),
+            ("New regulatory framework proposed for DeFi", "neutral", "Crypto", "https://www.coindesk.com/policy"),
+            ("Gold hits all-time high on global uncertainty", "positive", "Commodities", "https://www.kitco.com/news"),
+            ("Apple announces revolutionary AI integration", "positive", "Stocks", "https://www.apple.com/newsroom"),
+            ("Tesla delivery numbers miss analyst expectations", "negative", "Stocks", "https://www.tesla.com/blog")
         ]
         
         news = []
         for i in range(5):
-            headline, sentiment, category = headlines[i]
+            headline, sentiment, category, url = headlines[i]
             news.append({
                 "id": i,
                 "title": headline,
@@ -27,7 +27,8 @@ class NewsService:
                 "source": "TradeSense Wire",
                 "published_at": (datetime.now() - timedelta(minutes=random.randint(5, 120))).isoformat(),
                 "sentiment": sentiment,
-                "category": category
+                "category": category,
+                "url": url
             })
             
         return news

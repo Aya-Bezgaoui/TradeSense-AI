@@ -50,8 +50,8 @@ const NewsWidget = () => {
                         <div key={item.id} className="p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-colors">
                             <div className="flex justify-between items-start mb-2">
                                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${item.category === 'Crypto' ? 'bg-orange-500/10 text-orange-400' :
-                                        item.category === 'Stocks' ? 'bg-blue-500/10 text-blue-400' :
-                                            'bg-slate-700 text-slate-300'
+                                    item.category === 'Stocks' ? 'bg-blue-500/10 text-blue-400' :
+                                        'bg-slate-700 text-slate-300'
                                     }`}>
                                     {item.category}
                                 </span>
@@ -73,7 +73,11 @@ const NewsWidget = () => {
                                     {getSentimentIcon(item.sentiment)}
                                     <span className="capitalize text-slate-400">{item.sentiment}</span>
                                 </div>
-                                <button className="text-indigo-400 hover:text-indigo-300 transition-colors">
+                                <button
+                                    onClick={() => window.open(item.url, '_blank')}
+                                    className="text-indigo-400 hover:text-indigo-300 transition-colors"
+                                    title="Read full story"
+                                >
                                     <ExternalLink className="w-3 h-3" />
                                 </button>
                             </div>

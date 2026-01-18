@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Send, User } from 'lucide-react';
+import { Send, User, RefreshCw } from 'lucide-react';
 
 const ChatRoom = () => {
     const { user } = useAuth();
@@ -56,14 +56,25 @@ const ChatRoom = () => {
             <div className="p-4 bg-slate-950 border-b border-slate-800 flex justify-between items-center">
                 <h3 className="font-bold text-white flex items-center gap-2">
                     Traders Chat
-
-                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
                 </h3>
+                <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" title="Live"></span>
+                    <button onClick={fetchMessages} className="text-slate-500 hover:text-white transition-colors" title="Refresh Chat">
+                        <RefreshCw className="w-4 h-4" />
+                    </button>
+                </div>
             </div>
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {loading && <div className="text-center text-slate-500">Loading chat...</div>}
+                {loading && <div className="text-center text-slate-500 text-sm">Connecting to secure server...</div>}
+
+                {!loading && messages.length === 0 && (
+                    <div className="text-center text-slate-500 text-sm mt-10">
+                        <p>No messages yet.</p>
+                        <p className="text-xs">Be the first to say hello!</p>
+                    </div>
+                )}
 
                 {messages.map((msg) => {
                     const isMe = msg.user_name === user?.name;
