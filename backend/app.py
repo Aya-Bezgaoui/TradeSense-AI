@@ -51,6 +51,10 @@ def create_app():
     def health_check():
         return jsonify({"status": "healthy", "service": "TradeSense API"})
 
+    # verification: ensure tables exist (crucial for Vercel/Postgres first run)
+    with app.app_context():
+        db.create_all()
+
     return app
 
 # Expose app for Vercel
