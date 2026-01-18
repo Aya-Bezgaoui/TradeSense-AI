@@ -19,6 +19,7 @@ def token_required(f):
             if not current_user:
                  return jsonify({'message': 'User not found!'}), 401
         except Exception as e:
+            print(f"AUTH FAIL: {str(e)}")
             return jsonify({'message': 'Token is invalid!'}), 401
             
         return f(current_user, *args, **kwargs)

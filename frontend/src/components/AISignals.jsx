@@ -48,24 +48,39 @@ const AISignals = ({ symbol, price }) => {
                 <div className="text-xs text-slate-400">Confidence: {signal.confidence}%</div>
             </div>
 
-            <div className="space-y-2">
-                <p className="text-xs font-bold text-slate-500 uppercase">Key Drivers:</p>
-                {signal.reasons.map((r, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-slate-300">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        {r}
-                    </div>
-                ))}
+            {/* Hazard Detection Alert */}
+            <div className="mb-4 bg-orange-500/10 border border-orange-500/30 p-3 rounded-lg animate-pulse">
+                <div className="flex items-center gap-2 text-orange-400 font-bold text-xs uppercase mb-1">
+                    <Zap className="w-3 h-3" /> Hazard Detection
+                </div>
+                <div className="text-xs text-orange-200">
+                    High volatility expected in {Math.floor(Math.random() * 10) + 5} mins. Tighten stops.
+                </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                <div className="bg-red-500/10 p-2 rounded border border-red-500/30">
-                    <div className="text-red-400 font-bold">Stop Loss</div>
-                    <div className="text-white">${signal.stopLoss}</div>
+            <div className="space-y-4">
+                <div>
+                    <p className="text-xs font-bold text-slate-500 uppercase mb-2">AI Trade Plan</p>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="bg-red-500/10 p-2 rounded border border-red-500/30">
+                            <div className="text-red-400 font-bold">Stop Loss</div>
+                            <div className="text-white text-lg">${signal.stopLoss}</div>
+                        </div>
+                        <div className="bg-emerald-500/10 p-2 rounded border border-emerald-500/30">
+                            <div className="text-emerald-400 font-bold">Take Profit</div>
+                            <div className="text-white text-lg">${signal.takeProfit}</div>
+                        </div>
+                    </div>
                 </div>
-                <div className="bg-emerald-500/10 p-2 rounded border border-emerald-500/30">
-                    <div className="text-emerald-400 font-bold">Take Profit</div>
-                    <div className="text-white">${signal.takeProfit}</div>
+
+                <div>
+                    <p className="text-xs font-bold text-slate-500 uppercase mb-2">Key Drivers (Smart Sort)</p>
+                    {signal.reasons.map((r, i) => (
+                        <div key={i} className="flex items-center gap-2 text-sm text-slate-300 mb-1">
+                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                            {r}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

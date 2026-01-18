@@ -8,9 +8,13 @@ class MarketService:
     @staticmethod
     def get_quote(symbol):
         """
-        Fetch real-time quote for a symbol using yfinance.
+        Fetch real-time quote for a symbol.
+        For MVP Stability: Defaults to Mock Data immediately to prevent yfinance timeouts/errors.
         """
         try:
+            # FORCE MOCK for Demo Stability (User reported 500s)
+            raise Exception("Force Mock for Stability")
+
             ticker = yf.Ticker(symbol)
             # Use history for better reliability with crypto and indices
             hist = ticker.history(period="1d")

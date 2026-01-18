@@ -139,7 +139,8 @@ function Dashboard() {
       }
 
     } catch (err) {
-      alert('Trade failed: ' + err.message);
+      const detail = err.response?.data?.details || err.response?.data?.error || err.message;
+      alert('Trade failed: ' + detail);
     } finally {
       setProcessing(false);
     }

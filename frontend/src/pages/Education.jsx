@@ -169,6 +169,221 @@ Major exchanges include the **Chicago Mercantile Exchange (CME)** and the **Lond
             duration: "approx 80m",
             progress: 0,
             image: "bg-gradient-to-br from-indigo-500 to-purple-600"
+        },
+        {
+            id: 2,
+            title: "Mastering Technical Analysis",
+            description: "Go beyond the basics. Learn to read charts, identify trends, and use indicators to time your market entries.",
+            level: "Intermediate",
+            modules: [
+                {
+                    title: "Understanding Charts",
+                    duration: "10 min",
+                    content: `
+### Types of Charts
+To analyse price action, you need to visualize it.
+- **Line Charts**: Simple, shows closing prices only. Good for overall trend.
+- **Bar Charts**: Shows Open, High, Low, Close (OHLC). Good for volatility.
+- **Candlestick Charts**: The standard for traders. Shows OHLC with color-coded bodies (Green/Red) indicating bullish or bearish movement.
+
+### Timeframes
+- **Higher Timeframes (Daily/Weekly)**: Used for long-term trend analysis.
+- **Lower Timeframes (15m/1h)**: Used for entry timing and day trading.
+                    `
+                },
+                {
+                    title: "Support & Resistance",
+                    duration: "12 min",
+                    content: `
+### What are they?
+- **Support**: A price level where buying pressure is strong enough to prevent the price from falling further. Think of it as a "floor".
+- **Resistance**: A price level where selling pressure is strong enough to prevent the price from rising further. Think of it as a "ceiling".
+
+### Role Reversal
+When a resistance level is broken, it often becomes a new support level, and vice versa. This is a key concept in trend following.
+                    `
+                },
+                {
+                    title: "Technical Indicators",
+                    duration: "15 min",
+                    content: `
+### Moving Averages (MA)
+Smooth out price data to identify the trend direction.
+- **SMA**: Simple Moving Average.
+- **EMA**: Exponential Moving Average (reacts faster to recent prices).
+
+### RSI (Relative Strength Index)
+A momentum oscillator that measures speed and change of price movements.
+- **Overbought**: Above 70.
+- **Oversold**: Below 30.
+
+### MACD (Moving Average Convergence Divergence)
+A trend-following momentum indicator that shows the relationship between two moving averages of a security's price.
+                    `
+                },
+                {
+                    title: "Chart Patterns",
+                    duration: "18 min",
+                    content: `
+### Reversal Patterns
+Signal a change in trend direction.
+- **Head and Shoulders**: Bearish reversal.
+- **Double Bottom**: Bullish reversal.
+
+### Continuation Patterns
+Signal the trend is likely to continue.
+- **Flags and Pennants**: Short pauses in a strong trend.
+- **Triangles**: Ascending, Descending, and Symmetrical triangles.
+                    `
+                }
+            ],
+            duration: "approx 55m",
+            progress: 0,
+            image: "bg-gradient-to-br from-emerald-500 to-teal-600"
+        },
+        {
+            id: 3,
+            title: "Advanced Strategy & Psychology",
+            description: "The holistic approach. Master your mind, manage your risk, and build a repeatable edge in the markets.",
+            level: "High Level",
+            modules: [
+                {
+                    title: "Trading Psychology",
+                    duration: "20 min",
+                    content: `
+### The Trader's Mindset
+Successful trading is 20% strategy and 80% psychology.
+- **Fear**: Causes you to exit winning trades too early or hesitate to take valid setups.
+- **Greed**: Causes you to hold losing trades too long or use excessive leverage.
+- **FOMO**: Fear Of Missing Out leading to impulsive entries.
+
+### Discipline
+Sticking to your plan when emotions run high is the hallmark of a professional trader.
+                    `
+                },
+                {
+                    title: "Risk Management",
+                    duration: "25 min",
+                    content: `
+### The Golden Rule
+Never risk more than 1-2% of your account on a single trade.
+
+### R-Multiples
+Think in terms of Risk (R). If you risk $100 to make $300, that is a 3R trade.
+- A system with a 40% win rate can be profitable if your average winner is 3R and loser is 1R.
+
+### Drawdown Control
+Understanding how to handle losing streaks without blowing up your account.
+                    `
+                },
+                {
+                    title: "Fundamental Analysis",
+                    duration: "30 min",
+                    content: `
+### Economic Indicators
+- **NFP (Non-Farm Payrolls)**: Major US employment data that moves markets.
+- **CPI (Consumer Price Index)**: Measure of inflation.
+- **Interest Rates**: Central bank decisions (Fed, ECB) drive currency trends.
+
+### Sentiment Analysis
+Measuring the overall mood of the market. Are investors "Risk-On" (buying stocks/crypto) or "Risk-Off" (buying gold/bonds)?
+                    `
+                },
+                {
+                    title: "Building an Edge",
+                    duration: "22 min",
+                    content: `
+### What is an Edge?
+A statistical advantage that ensures profitability over a large sample of trades.
+
+### Backtesting
+Testing your strategy on historical data to verify its edge before risking real money.
+
+### Journaling
+Recording every trade (Entry, Exit, Rationale, Emotion) to identify patterns in your own behavior and improve.
+                    `
+                }
+            ],
+            duration: "approx 97m",
+            progress: 0,
+            image: "bg-gradient-to-br from-amber-500 to-orange-600"
+        },
+        {
+            id: 4,
+            title: "Algorithmic & Crypto Trading Mastery",
+            description: "Leverage the power of code and AI. Learn to automate your strategies and navigate the volatility of cryptocurrency markets.",
+            level: "Expert",
+            modules: [
+                {
+                    title: "Algo Trading Fundamentals",
+                    duration: "35 min",
+                    content: `
+### What is Algorithmic Trading?
+The use of computer programs to execute trades automatically based on predefined criteria (price, timing, volume).
+- **Speed**: EXECUTION is measured in milliseconds.
+- **Discipline**: Eliminates emotional interference.
+- **Consistency**: Trades the plan exactly, every time.
+
+### Python for Finance
+Python is the industry standard for Algo Trading due to its rich ecosystem of libraries:
+- **Pandas**: For data manipulation and analysis.
+- **NumPy**: For high-performance scientific computing.
+- **TA-Lib**: For calculating technical indicators programmatically.
+                    `
+                },
+                {
+                    title: "Strategy Paradigms",
+                    duration: "40 min",
+                    content: `
+### Trend Following
+"The trend is your friend." Algorithms that identify and ride market momentum.
+- **Moving Average Crossover**: Buy when Fast MA crosses above Slow MA.
+- **Breakout Strategies**: Buy when price exceeds a defined resistance level.
+
+### Mean Reversion
+"What goes up must come down." Betting that extreme prices will return to the average.
+- **Bollinger Bands**: Sell when price hits both, Buy when it hits bottom.
+- **RSI Divergence**: detecting weakness in a trend.
+
+### Market Making
+Providing liquidity by placing both Buy and Sell limit orders to capture the spread. Requires low latency access.
+                    `
+                },
+                {
+                    title: "Crypto Specifics",
+                    duration: "45 min",
+                    content: `
+### 24/7 Markets
+Crypto never sleeps. Algorithms are essential to monitor these markets when you cannot.
+
+### Arbitrage
+Exploiting price differences of the same asset across different exchanges.
+- **Spatial Arbitrage**: Buy Bitcoin on Exchange A for $90k, Sell on Exchange B for $90.2k.
+- **Triangular Arbitrage**: Exchanging Currency A -> B -> C -> A to profit from exchange rate misalignments.
+
+### On-Chain Data
+Using blockchain data (whale alerts, transaction volume) as a leading indicator.
+                    `
+                },
+                {
+                    title: "Backtesting & AI",
+                    duration: "40 min",
+                    content: `
+### The Importance of Backtesting
+Simulating your strategy on historical data to estimate its performance.
+- **In-Sample vs Out-of-Sample**: Prevent "overfitting" by testing on unseen data.
+- **Walk-Forward Analysis**: Optimizing parameters on a rolling window.
+
+### Machine Learning in Trading
+Using AI to predict price direction.
+- **Supervised Learning**: Training models on labeled historical data (e.g. "Price went UP").
+- **Reinforcement Learning**: An AI "agent" learns to trade by being rewarded for profit and penalized for loss.
+                    `
+                }
+            ],
+            duration: "approx 160m",
+            progress: 0,
+            image: "bg-gradient-to-br from-cyan-500 to-blue-600"
         }
     ];
 
@@ -223,8 +438,8 @@ Major exchanges include the **Chicago Mercantile Exchange (CME)** and the **Lond
                 </div>
                 <div className="mt-6 md:mt-0 flex gap-4 z-10">
                     <div className="text-center p-4 bg-slate-800 rounded-xl">
-                        <div className="text-2xl font-bold text-white">10</div>
-                        <div className="text-xs text-slate-500">Modules</div>
+                        <div className="text-2xl font-bold text-white">4</div>
+                        <div className="text-xs text-slate-500">Courses</div>
                     </div>
                     <div className="text-center p-4 bg-slate-800 rounded-xl">
                         <div className="text-2xl font-bold text-emerald-400">Read</div>

@@ -15,6 +15,12 @@ def evaluate_challenge(challenge_id):
 
     # 1. Reset Daily Equity if new day
     current_time = datetime.utcnow()
+    current_time = datetime.utcnow()
+    
+    # Initialize reset time if missing
+    if not challenge.last_daily_reset:
+        challenge.last_daily_reset = challenge.created_at or current_time
+        
     if challenge.last_daily_reset.date() < current_time.date():
         # It's a new day, update daily start equity
         # In a real system, this would be the equity at approx 00:00 UTC

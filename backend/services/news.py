@@ -7,14 +7,14 @@ class NewsService:
         sentiment_options = ['positive', 'negative', 'neutral']
         
         headlines = [
-            ("Bitcoin surges past resistance as institutional interest grows", "positive", "Crypto", "https://www.bloomberg.com/crypto"),
-            ("Fed signals potential rate cuts later this year", "positive", "Forex", "https://www.reuters.com/finance"),
-            ("Tech stocks slip amid mixed earnings reports", "negative", "Stocks", "https://www.cnbc.com/technology"),
-            ("Oil prices stabilize after volatile week", "neutral", "Commodities", "https://www.bloomberg.com/energy"),
+            ("Bitcoin surges past resistance as institutional interest grows", "positive", "Crypto", "https://finance.yahoo.com/topic/crypto/"),
+            ("Fed signals potential rate cuts later this year", "positive", "Forex", "https://www.cnbc.com/foreign-exchange/"),
+            ("Tech stocks slip amid mixed earnings reports", "negative", "Stocks", "https://finance.yahoo.com/topic/tech/"),
+            ("Oil prices stabilize after volatile week", "neutral", "Commodities", "https://www.cnbc.com/energy/"),
             ("New regulatory framework proposed for DeFi", "neutral", "Crypto", "https://www.coindesk.com/policy"),
             ("Gold hits all-time high on global uncertainty", "positive", "Commodities", "https://www.kitco.com/news"),
             ("Apple announces revolutionary AI integration", "positive", "Stocks", "https://www.apple.com/newsroom"),
-            ("Tesla delivery numbers miss analyst expectations", "negative", "Stocks", "https://www.tesla.com/blog")
+            ("Tesla delivery numbers miss analyst expectations", "negative", "Stocks", "https://finance.yahoo.com/quote/TSLA")
         ]
         
         news = []

@@ -3,7 +3,7 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { Send, User, RefreshCw } from 'lucide-react';
 
-const ChatRoom = () => {
+const ChatRoom = ({ channel }) => {
     const { user } = useAuth();
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -11,24 +11,50 @@ const ChatRoom = () => {
     const [loading, setLoading] = useState(true);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
     };
 
     const fetchMessages = async () => {
+        setLoading(true);
         try {
-            const res = await api.get('/chat/');
-            setMessages(res.data);
-            setLoading(false);
+            if (channel === 'General' || !channel) {
+                // Real backend for General
+                const res = await api.get('/chat/');
+                setMessages(res.data);
+            } else {
+                // Mock data for other channels (MVP)
+                // Simulate delay
+                await new Promise(r => setTimeout(r, 500));
+
+                // Deterministic mock based on channel name
+                const mocks = [
+                    { id: 1, user_name: 'CryptoKing', text: `Anyone watching BTC in ${channel}?`, timestamp: new Date(Date.now() - 1000000).toISOString() },
+                    { id: 2, user_name: 'SarahForex', text: 'Structure looks bullish on 4H.', timestamp: new Date(Date.now() - 500000).toISOString() },
+                    { id: 3, user_name: 'MikeQuant', text: 'Waiting for the NY open to enter.', timestamp: new Date(Date.now() - 100000).toISOString() },
+                ];
+                setMessages(mocks);
+            }
         } catch (e) {
             console.error("Chat fetch error", e);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchMessages();
-        const interval = setInterval(fetchMessages, 3000); // Simple polling every 3s
-        return () => clearInterval(interval);
-    }, []);
+
+        // Polling only for General (Real backend)
+        let interval;
+        if (channel === 'General') {
+            interval = setInterval(fetchMessages, 3000);
+        }
+        return () => {
+            if (interval) clearInterval(interval);
+        }
+    }, [channel]);
 
     useEffect(() => {
         scrollToBottom();
@@ -39,23 +65,34 @@ const ChatRoom = () => {
         if (!inputText.trim()) return;
 
         try {
-            await api.post('/chat/', {
-                user_name: user?.name || 'Anonymous', // Simplified for MVP
-                text: inputText
-            });
+            if (channel === 'General' || !channel) {
+                await api.post('/chat/', {
+                    user_name: user?.name || 'Anonymous',
+                    text: inputText
+                });
+                fetchMessages(); // Refresh
+            } else {
+                // Local mock send
+                const newMsg = {
+                    id: Date.now(),
+                    user_name: user?.name || 'Me',
+                    text: inputText,
+                    timestamp: new Date().toISOString()
+                };
+                setMessages(prev => [...prev, newMsg]);
+            }
             setInputText('');
-            fetchMessages(); // Refresh immediately
         } catch (e) {
             console.error("Chat send error", e);
         }
     };
 
     return (
-        <div className="flex flex-col h-[600px] bg-slate-900 rounded-xl overflow-hidden border border-slate-800">
+        <div className="flex flex-col h-full bg-slate-900 rounded-xl overflow-hidden border border-slate-800">
             {/* Header */}
             <div className="p-4 bg-slate-950 border-b border-slate-800 flex justify-between items-center">
                 <h3 className="font-bold text-white flex items-center gap-2">
-                    Traders Chat
+                    {channel || 'General'} Chat
                 </h3>
                 <div className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" title="Live"></span>
@@ -67,7 +104,7 @@ const ChatRoom = () => {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {loading && <div className="text-center text-slate-500 text-sm">Connecting to secure server...</div>}
+                {loading && <div className="text-center text-slate-500 text-sm">Connecting to secure {channel}...</div>}
 
                 {!loading && messages.length === 0 && (
                     <div className="text-center text-slate-500 text-sm mt-10">
@@ -77,7 +114,7 @@ const ChatRoom = () => {
                 )}
 
                 {messages.map((msg) => {
-                    const isMe = msg.user_name === user?.name;
+                    const isMe = msg.user_name === user?.name || msg.user_name === 'Me';
                     return (
                         <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                             <div className={`max-w-[80%] rounded-xl p-3 ${isMe ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-200'}`}>
@@ -99,7 +136,7 @@ const ChatRoom = () => {
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Type a message..."
+                    placeholder={`Message #${channel || 'general'}...`}
                     className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
                 <button
