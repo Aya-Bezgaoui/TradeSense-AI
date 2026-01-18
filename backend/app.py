@@ -51,9 +51,25 @@ def create_app():
     def health_check():
         return jsonify({"status": "healthy", "service": "TradeSense API"})
 
-    # verification: ensure tables exist (crucial for Vercel/Postgres first run)
-    with app.app_context():
-        db.create_all()
+    # verification: ensure tables exist, but safe-guard against crashes
+    try:
+        with app.app_context():
+            db.create_all()
+            print("Database initialized successfully.")
+    except Exception as e:
+        print(f"Database init failed: {e}")
+
+    @app.route('/api/debug/db')
+    def debug_db():
+        try:
+            db.create_all()
+            return jsonify({
+                "status": "success", 
+                "message": "Connected to DB and ensured tables exist.",
+                "db_url": app.config['SQLALCHEMY_DATABASE_URI'].split('@')[-1] if '@' in app.config['SQLALCHEMY_DATABASE_URI'] else "HIDDEN"
+            })
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
 
     return app
 
