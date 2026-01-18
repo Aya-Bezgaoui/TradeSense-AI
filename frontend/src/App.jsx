@@ -13,6 +13,7 @@ import Leaderboard from './pages/Leaderboard'
 import Chat from './pages/Chat'
 import Admin from './pages/Admin'
 import Contact from './pages/Contact'
+import Education from './pages/Education'
 
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -29,6 +30,7 @@ function App() {
       <Route path="/checkout" element={<Layout><ProtectedRoute><Checkout /></ProtectedRoute></Layout>} />
       <Route path="/dashboard" element={<Layout><ProtectedRoute><Dashboard /></ProtectedRoute></Layout>} />
       <Route path="/chat" element={<Layout><ProtectedRoute><Chat /></ProtectedRoute></Layout>} />
+      <Route path="/education" element={<Layout><ProtectedRoute><Education /></ProtectedRoute></Layout>} />
       <Route path="/admin" element={<Layout><ProtectedRoute role="admin"><Admin /></ProtectedRoute></Layout>} />
     </Routes>
   )

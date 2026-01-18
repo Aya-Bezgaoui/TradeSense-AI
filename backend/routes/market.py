@@ -1,8 +1,17 @@
 from flask import Blueprint, request, jsonify
 from services.market import market_service
 from services.morocco_scraper import morocco_scraper
+from services.news import news_service
 
 market_bp = Blueprint('market', __name__)
+
+@market_bp.route('/news', methods=['GET'])
+def get_news():
+    try:
+        news = news_service.get_market_news()
+        return jsonify(news)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @market_bp.route('/quote', methods=['GET'])
 def get_quote():

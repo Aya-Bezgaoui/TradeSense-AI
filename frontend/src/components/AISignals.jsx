@@ -19,9 +19,11 @@ const AISignals = ({ symbol, price }) => {
         setSignal({
             type: randomType,
             confidence: confidence,
-            reasons: reasons
+            reasons: reasons,
+            stopLoss: price ? (randomType === 'BUY' ? price * 0.98 : price * 1.02).toFixed(2) : '---',
+            takeProfit: price ? (randomType === 'BUY' ? price * 1.05 : price * 0.95).toFixed(2) : '---'
         });
-    }, [symbol]); // Recalculate on symbol change (or implement time interval)
+    }, [symbol, price]); // Recalculate on symbol change
 
     if (!signal) return null;
 
@@ -39,7 +41,7 @@ const AISignals = ({ symbol, price }) => {
 
             <div className="flex flex-col items-center justify-center text-center p-4 bg-slate-950 rounded-xl mb-4">
                 <div className={`text-2xl font-black mb-1 ${signal.type === 'BUY' ? 'text-emerald-400' :
-                        signal.type === 'SELL' ? 'text-red-400' : 'text-slate-400'
+                    signal.type === 'SELL' ? 'text-red-400' : 'text-slate-400'
                     }`}>
                     {signal.type}
                 </div>
@@ -54,6 +56,17 @@ const AISignals = ({ symbol, price }) => {
                         {r}
                     </div>
                 ))}
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-red-500/10 p-2 rounded border border-red-500/30">
+                    <div className="text-red-400 font-bold">Stop Loss</div>
+                    <div className="text-white">${signal.stopLoss}</div>
+                </div>
+                <div className="bg-emerald-500/10 p-2 rounded border border-emerald-500/30">
+                    <div className="text-emerald-400 font-bold">Take Profit</div>
+                    <div className="text-white">${signal.takeProfit}</div>
+                </div>
             </div>
         </div>
     );

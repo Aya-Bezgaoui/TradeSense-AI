@@ -6,7 +6,8 @@ import { TradingChart } from '../components/TradingChart';
 import OrderPanel from '../components/OrderPanel';
 import StatsCard from '../components/StatsCard';
 import AISignals from '../components/AISignals';
-import { RefreshCw, AlertTriangle, BarChart2, TrendingUp, CheckCircle, BrainCircuit, Sparkles, Target } from 'lucide-react';
+import NewsWidget from '../components/NewsWidget';
+import { RefreshCw, AlertTriangle, BarChart2, TrendingUp, CheckCircle, BrainCircuit, Sparkles, Target, Trophy } from 'lucide-react';
 
 function Dashboard() {
   const { user } = useAuth();
@@ -14,6 +15,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [symbol, setSymbol] = useState('BTC-USD');
   const [quantity, setQuantity] = useState(1);
+  const [timeframe, setTimeframe] = useState('1D');
   const [marketData, setMarketData] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [trades, setTrades] = useState([]);
@@ -61,9 +63,24 @@ function Dashboard() {
       const quoteRes = await api.get(`/market/quote?symbol=${symbol}`);
       setMarketData(quoteRes.data);
 
-      // Chart Series (Optimization: Only fetch on symbol change? For MVP refresh all)
-      // Ideally we use a stream or append. For MVP we reload.
-      const seriesRes = await api.get(`/market/series?symbol=${symbol}&interval=1m&period=1d`);
+      // Chart Series
+      // Map timeframe to API params (yfinance)
+      let interval = '1d';
+      let period = '1y';
+
+      if (timeframe === '1H') {
+        interval = '1h'; // or 60m
+        period = '1mo'; // Get 1 month of hourly data
+      } else if (timeframe === '4H') {
+        interval = '1h'; // yfinance doesn't easily support 4h free, use 1h
+        period = '3mo';  // Get 3 months of hourly data
+      } else if (timeframe === '1D') {
+        interval = '1d';
+        period = '1y';
+      }
+
+      console.log(`Fetching chart: ${symbol} ${interval} ${period}`);
+      const seriesRes = await api.get(`/market/series?symbol=${symbol}&interval=${interval}&period=${period}`);
       // Transform if needed? The backend already sends time/open/high/low/close
       setChartData(seriesRes.data);
 
@@ -71,7 +88,7 @@ function Dashboard() {
     } catch (e) {
       console.error("Market fetch failed", e);
     }
-  }, [symbol]);
+  }, [symbol, timeframe]);
 
   // Initial Load
   useEffect(() => {
@@ -100,8 +117,6 @@ function Dashboard() {
     try {
       const res = await api.post('/trading/', {
         challenge_id: challenge.id,
-        symbol: symbol,
-        side: side,
         symbol: symbol,
         side: side,
         amount: Number(quantity)
@@ -198,7 +213,12 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <TradingChart data={chartData} symbol={symbol} />
+            <TradingChart
+              data={chartData}
+              symbol={symbol}
+              currentTimeframe={timeframe}
+              onTimeframeChange={setTimeframe}
+            />
           </div>
 
           {/* AI Analysis Panel */}
@@ -231,6 +251,9 @@ function Dashboard() {
               </div>
             </div>
           </div>
+
+          {/* News Widget - New Feature */}
+          <NewsWidget />
         </div>
 
         {/* Prop Firm Metrics Sidebar */}

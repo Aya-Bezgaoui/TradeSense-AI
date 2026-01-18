@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, MessageCircle } from 'lucide-react';
+import { LogOut, MessageCircle, Users, GraduationCap } from 'lucide-react';
 import clsx from 'clsx';
 import SupportChatbot from '../components/SupportChatbot';
 import Footer from './Footer';
@@ -44,8 +44,12 @@ function Layout({ children }) {
                                             Dashboard
                                         </Link>
                                         <Link to="/chat" className={clsx("hover:text-primary transition-colors px-3 py-2 rounded-md font-medium flex items-center gap-1", isActive('/chat') ? 'text-primary' : 'text-slate-300')}>
-                                            <MessageCircle className="w-4 h-4" />
-                                            Chat
+                                            <Users className="w-4 h-4" />
+                                            Community
+                                        </Link>
+                                        <Link to="/education" className={clsx("hover:text-primary transition-colors px-3 py-2 rounded-md font-medium flex items-center gap-1", isActive('/education') ? 'text-primary' : 'text-slate-300')}>
+                                            <GraduationCap className="w-4 h-4" />
+                                            Academy
                                         </Link>
                                     </>
                                 )}

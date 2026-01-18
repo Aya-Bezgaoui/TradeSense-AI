@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
 
-export const TradingChart = ({ symbol, data, marketOpen = true }) => {
+export const TradingChart = ({ symbol, data, marketOpen = true, currentTimeframe = '1D', onTimeframeChange }) => {
     const chartContainerRef = useRef();
     const chartRef = useRef(null);
     const seriesRef = useRef(null);
@@ -77,8 +77,22 @@ export const TradingChart = ({ symbol, data, marketOpen = true }) => {
                     <span className="text-xl font-bold text-slate-400">Market Closed</span>
                 </div>
             )}
-            <div className="absolute top-4 left-4 z-20 bg-slate-800/80 px-3 py-1 rounded text-xs font-mono text-white">
-                {symbol} • 1M
+            <div className="absolute top-4 left-4 z-20 flex items-center gap-4 bg-slate-800/90 p-1.5 rounded-lg border border-slate-700/50 backdrop-blur-md">
+                <span className="font-bold text-white px-2 border-r border-slate-600">{symbol}</span>
+                <div className="flex gap-1">
+                    {['1H', '4H', '1D'].map((tf) => (
+                        <button
+                            key={tf}
+                            onClick={() => onTimeframeChange && onTimeframeChange(tf)}
+                            className={`px-3 py-1 rounded text-xs font-bold transition-all ${currentTimeframe === tf
+                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
+                                : 'text-slate-400 hover:text-white hover:bg-slate-700'
+                                }`}
+                        >
+                            {tf}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
