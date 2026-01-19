@@ -65,14 +65,44 @@ def create_app():
         @app.route('/api/debug/db')
         def debug_db():
             try:
-                db.create_all()
-                return jsonify({
-                    "status": "success", 
-                    "message": "Connected to DB and ensured tables exist.",
-                    "db_url": app.config['SQLALCHEMY_DATABASE_URI'].split('@')[-1] if '@' in app.config['SQLALCHEMY_DATABASE_URI'] else "HIDDEN"
-                })
+                # 1. Safe Diagnostic Mode (Default)
+                action = request.args.get('action', 'check')
+                db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+                
+                # Obfuscate password for security
+                safe_uri = "HIDDEN"
+                if db_uri:
+                    if "@" in db_uri:
+                        safe_uri = db_uri.split("@")[-1] 
+                    else:
+                        safe_uri = db_uri
+                
+                if action == 'check':
+                    return jsonify({
+                        "status": "online",
+                        "message": "App is running. DB Configured.",
+                        "db_type": safe_uri,
+                        "instructions": "To create tables, visit: /api/debug/db?action=init"
+                    })
+
+                # 2. Risky Action Mode (Only if requested)
+                if action == 'init':
+                    db.create_all()
+                    return jsonify({
+                        "status": "success", 
+                        "message": "Tables created successfully!",
+                        "db_type": safe_uri
+                    })
+                    
+                return jsonify({"error": "Invalid action"}), 400
+
             except Exception as e:
-                return jsonify({"status": "error", "message": str(e)}), 500
+                # Return JSON error even if crash happens
+                return jsonify({
+                    "status": "crash", 
+                    "error": str(e), 
+                    "type": str(type(e).__name__)
+                }), 500
 
         return app
 
