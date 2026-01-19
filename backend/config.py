@@ -9,7 +9,9 @@ class Config:
     uri = os.getenv('POSTGRES_URL') or os.getenv('POSTGRES_PRISMA_URL') or os.getenv('DATABASE_URL')
     
     if uri and uri.startswith("postgres://"):
-        uri = uri.replace("postgres://", "postgresql://", 1)
+        uri = uri.replace("postgres://", "postgresql+pg8000://", 1)
+    elif uri and uri.startswith("postgresql://"):
+        uri = uri.replace("postgresql://", "postgresql+pg8000://", 1)
     
     if not uri:
         # Fallback to ephemeral SQLite for Vercel if no DB connected
