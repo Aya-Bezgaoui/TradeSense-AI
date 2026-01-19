@@ -13,6 +13,9 @@ load_dotenv()
 
 def create_app():
     try:
+        # Debug: Force crash to test safety net
+        # raise Exception("Safety Net Test Check")
+        
         app = Flask(__name__)
         
         # 1. Config
