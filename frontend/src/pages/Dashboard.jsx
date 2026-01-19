@@ -213,6 +213,17 @@ function Dashboard() {
                   {symbols.find(s => s.id === symbol)?.desc.substring(0, 60)}...
                 </span>
               </div>
+
+              {marketData && (
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-white">
+                    {marketData.currency === 'USD' ? '$' : ''}{marketData.price.toLocaleString(undefined, { minimumFractionDigits: 2 })} {marketData.currency !== 'USD' ? marketData.currency : ''}
+                  </div>
+                  <div className={`text-sm font-medium ${marketData.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {marketData.change > 0 ? '+' : ''}{marketData.change.toFixed(2)} ({marketData.change_pct.toFixed(2)}%)
+                  </div>
+                </div>
+              )}
             </div>
             <TradingChart
               data={chartData}

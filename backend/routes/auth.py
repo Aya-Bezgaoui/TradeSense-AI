@@ -36,6 +36,9 @@ def register():
 def login():
     data = request.json
     try:
+        # Ensure tables exist (Local Dev Fix)
+        db.create_all()
+        
         user = User.query.filter_by(email=data['email']).first()
         
         if not user or not check_password_hash(user.password_hash, data['password']):

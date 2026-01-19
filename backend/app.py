@@ -41,17 +41,17 @@ def create_app():
         from routes.trading import trading_bp
         from routes.core import core_bp
         
-        app.register_blueprint(market_bp, url_prefix='/api/market')
+        app.register_blueprint(market_bp, url_prefix='/api/market') # RESTORED
         app.register_blueprint(auth_bp, url_prefix='/api/auth')
-        app.register_blueprint(plans_bp, url_prefix='/api/plans')
-        app.register_blueprint(checkout_bp, url_prefix='/api/checkout')
-        app.register_blueprint(challenges_bp, url_prefix='/api/challenges')
-        app.register_blueprint(trades_bp, url_prefix='/api/trades')
-        app.register_blueprint(leaderboard_bp, url_prefix='/api/leaderboard')
+        app.register_blueprint(plans_bp, url_prefix='/api/plans') # RESTORED
+        app.register_blueprint(checkout_bp, url_prefix='/api/checkout') # RESTORED
+        app.register_blueprint(challenges_bp, url_prefix='/api/challenges') # RESTORED
+        app.register_blueprint(trades_bp, url_prefix='/api/trades') # RESTORED
+        app.register_blueprint(leaderboard_bp, url_prefix='/api/leaderboard') # Keep separate if not in core? Core has it.
         app.register_blueprint(admin_bp, url_prefix='/api/admin')
         app.register_blueprint(chat_bp, url_prefix='/api/chat')
         app.register_blueprint(trading_bp, url_prefix='/api/trading')
-        app.register_blueprint(core_bp, url_prefix='/api')
+        # app.register_blueprint(core_bp, url_prefix='/api') # DISABLED due to Auth issues
 
         @app.route('/')
         @app.route('/api')
@@ -109,6 +109,7 @@ def create_app():
 
     except Exception as e:
         # SUPER SAFETY NET: If app crashes during load, return a valid app that reports the error
+        boot_error = str(e) # Capture string immediately
         error_app = Flask(__name__)
         error_msg = traceback.format_exc()
         
@@ -117,7 +118,7 @@ def create_app():
         def catch_all(path=None):
             return jsonify({
                 "status": "critical_boot_error",
-                "error": str(e),
+                "error": boot_error,
                 "traceback": error_msg.split('\n')
             }), 500
             

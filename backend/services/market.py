@@ -101,14 +101,39 @@ class MarketService:
     def _get_mock_series(self, symbol, interval):
         data = []
         end_time = int(time.time())
-        price = 42000.0 if 'BTC' in symbol else 150.0
-        points = 50
-        step = 60 if interval == '1m' else 3600
+        
+        # Base price depends on symbol roughly
+        price = 100.0
+        if 'BTC' in symbol: price = 92000.0
+        elif 'ETH' in symbol: price = 2800.0
+        elif 'IAM' in symbol: price = 105.0 # Maroc Telecom
+        elif 'ATW' in symbol: price = 480.0
+        elif 'ADI' in symbol: price = 450.0
+        
+        points = 60 # Show more points for a better chart
+        step = 86400 if interval == '1d' else 3600 # 1 day or 1 hour
+        
+        # Start from history and walk forward
+        current_price = price * 0.95 # Start slightly lower to show trend
+        
         for i in range(points):
+            # Random walk
+            change = random.uniform(-0.02, 0.025) # Slightly bullish bias
+            open_p = current_price
+            close_p = open_p * (1 + change)
+            high_p = max(open_p, close_p) * (1 + random.uniform(0, 0.01))
+            low_p = min(open_p, close_p) * (1 - random.uniform(0, 0.01))
+            
             data.append({
                 "time": end_time - (points - i) * step,
-                "open": price, "high": price+1, "low": price-1, "close": price, "volume": 1000
+                "open": round(open_p, 2),
+                "high": round(high_p, 2),
+                "low": round(low_p, 2),
+                "close": round(close_p, 2),
+                "volume": random.randint(1000, 50000)
             })
+            current_price = close_p
+            
         return data
 
 market_service = MarketService()

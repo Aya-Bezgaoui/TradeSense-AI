@@ -13,10 +13,30 @@ core_bp = Blueprint('core', __name__, url_prefix='/api')
 # PLANS ROUTES
 # -------------------
 
+def seed_plans():
+    """Ensure default plans exist"""
+    try:
+        if Plan.query.first():
+            return
+            
+        plans = [
+            Plan(name='Starter', slug='starter', price=49, balance=5000, features='Basic features'),
+            Plan(name='Pro', slug='pro', price=99, balance=15000, features='Pro features'),
+            Plan(name='Elite', slug='elite', price=199, balance=50000, features='Elite features')
+        ]
+        
+        for p in plans:
+            db.session.add(p)
+        db.session.commit()
+    except Exception as e:
+        print(f"Seeding Check Failed: {e}")
+        db.session.rollback()
+
 @core_bp.route('/plans', methods=['GET'])
 def get_plans():
     """Get all available plans"""
     try:
+        seed_plans() # Ensure plans exist
         plans = Plan.query.all()
         return jsonify([plan.to_dict() for plan in plans]), 200
     except Exception as e:
@@ -41,6 +61,7 @@ def mock_checkout():
         payment_method = data.get('method', 'CMI')  # CMI, CRYPTO, PAYPAL
         
         # Validate plan exists
+        seed_plans() # JIT Seeding
         plan = Plan.query.filter_by(slug=plan_slug).first()
         if not plan:
             return jsonify({'error': 'Plan not found'}), 404
