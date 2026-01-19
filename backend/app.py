@@ -82,7 +82,7 @@ def create_app():
         error_msg = traceback.format_exc()
         
         @error_app.route('/')
-        @error_app.route('/api/<path:path>')
+        @error_app.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
         def catch_all(path=None):
             return jsonify({
                 "status": "critical_boot_error",
