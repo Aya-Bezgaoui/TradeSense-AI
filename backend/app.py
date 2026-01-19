@@ -2,19 +2,17 @@ import os
 import sys
 import traceback
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from dotenv import load_dotenv
 
 # Vercel Path Fix: Ensure current directory is in sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Load environment variables
-load_dotenv()
-
 def create_app():
     try:
-        # Debug: Force crash to test safety net
-        raise Exception("Safety Net Test Check")
+        # Move imports here to catch "Module Not Found" errors safely
+        from flask_cors import CORS
+        from dotenv import load_dotenv
+        
+        load_dotenv()
         
         app = Flask(__name__)
         
